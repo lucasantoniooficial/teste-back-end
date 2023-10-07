@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  node:
+    build:
+      args:
+        user: 1000
+        uid: 1001
+      context: .
+    working_dir: /app
+    volumes:
+      - ./:/app
+    networks:
+      - next-network
+
+  nginxnode:
+    image: nginx:alpine
+    tty: true
+    volumes:
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d/
+    ports:
+      - "80:80"
+    networks:
+      - external_network_teste
+      - next-network
+
+  db:
+    image: mysql:8
+    restart: always
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysqldata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "root123"
+      MYSQL_PASSWORD: "root"
+      MYSQL_USER: "lucas"
+      MYSQL_DATABASE: "entrevista"
+    networks:
+      - next-network
+
+volumes:
+  mysqldata:
+    driver: local
+networks:
+  external_network_teste:
+    external: true
+  next-network:
+    driver: bridge
