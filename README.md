@@ -25,4 +25,4 @@ Desta forma será criado todas tabelas do banco de dados e será populado com os
 
 ###### Para execução sem docker
 
-seguindo este passo a passo só precisa rodar antes o comando `npm install` e seguir o passo a passo como fosse dentro do terminal do container.
+seguindo este passo a passo só precisa rodar antes o comando `npm install && npm run start:dev` e seguir o passo a passo como fosse dentro do terminal do container.
